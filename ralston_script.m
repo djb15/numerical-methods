@@ -64,7 +64,7 @@ legend('Sine','Square','Sawtooth','Location','Southwest');
 h = 0.000001;
 tf = 0.002;
 time = 0:h:tf-h;
-v7 = 4*sin((2*pi*time)/(1000*10^-6));
+v7 = 4*sin((2*pi*time)/(750*10^-6));
 [t,vout] = ralston(func,i0,v7,tf,R,L,h);
 figure;
 plot(t,vout, 'r');
@@ -72,12 +72,12 @@ xlabel('Time/s');
 ylabel('Amplitude/V');
 hold on;
 
-v8 = 4*square((2*pi*time)/(1000*10^-6));
+v8 = 4*square((2*pi*time)/(750*10^-6));
 [t,vout] = ralston(func,i0,v8,tf,R,L,h);
 plot(t,vout, 'g');
 hold on;
 
-v9 = 4*sawtooth((2*pi*time)/(1000*10^-6));
+v9 = 4*sawtooth((2*pi*time)/(750*10^-6));
 [t,vout] = ralston(func,i0,v9,tf,R,L,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');

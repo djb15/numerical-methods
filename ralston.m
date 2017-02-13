@@ -26,5 +26,6 @@ function [t,vout] = ralston(func,i0,vin,tf,R,L,h)
 
         vout(j) = vin(j) - i(j)*R; %returns vout from vin and estimated current
     end
+    vout(N) = vin(N) - i(N)*R;
 end
 
