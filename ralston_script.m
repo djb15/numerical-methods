@@ -14,6 +14,7 @@ figure;
 plot(t,vout,'r');
 xlabel('Time/s');
 ylabel('Amplitude/V');
+title('Impluse reponses');
 hold on;
 % This plot is as expected as the circuit initially has a high voltage that
 % decays over time due to the inductor
@@ -44,9 +45,11 @@ time = 0:h:tf-h;
 v4 = 4*sin((2*pi*time)/(1000*10^-6));
 [t,vout] = ralston(func,i0,v4,tf,R,L,h);
 figure;
+subplot(2,2,4);
 plot(t,vout, 'r');
 xlabel('Time/s');
 ylabel('Amplitude/V');
+title('Sine of wavelength 1000um');
 hold on;
 
 v5 = 4*square((2*pi*time)/(1000*10^-6));
@@ -66,10 +69,11 @@ tf = 0.002;
 time = 0:h:tf-h;
 v7 = 4*sin((2*pi*time)/(750*10^-6));
 [t,vout] = ralston(func,i0,v7,tf,R,L,h);
-figure;
+subplot(2,2,3);
 plot(t,vout, 'r');
 xlabel('Time/s');
 ylabel('Amplitude/V');
+title('Sine of wavelength 750um');
 hold on;
 
 v8 = 4*square((2*pi*time)/(750*10^-6));
@@ -89,10 +93,11 @@ tf = 0.0003;
 time = 0:h:tf-h;
 v10 = 4*sin((2*pi*time)/(110*10^-6));
 [t,vout] = ralston(func,i0,v10,tf,R,L,h);
-figure;
+subplot(2,2,2);
 plot(t,vout,'r');
 xlabel('Time/s');
 ylabel('Amplitude/V');
+title('Sine of wavelength 110um');
 hold on;
 
 v11 = 4*square((2*pi*time)/(110*10^-6));
@@ -112,10 +117,11 @@ tf = 0.0001;
 time = 0:h:tf-h;
 v13 = 4*sin((2*pi*time)/(35*10^-6));
 [t,vout] = ralston(func,i0,v13,tf,R,L,h);
-figure;
+subplot(2,2,1);
 plot(t,vout,'r');
 xlabel('Time/s');
 ylabel('Amplitude/V');
+title('Sine of wavelength 35um');
 hold on;
 
 v14 = 4*square((2*pi*time)/(35*10^-6));
