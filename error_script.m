@@ -15,10 +15,12 @@ exactout = vin - R*exacti; %Exact system response
 
 [~,ra] = ralston(func,i0,vin,tf,R,L,h);
 [t,he] = heun(func,i0,vin,tf,R,L,h);
+[t,mid]= midpoint(func,i0,vin,tf,R,L,h);
 
 figure; % Plot the error of each of the numerical methods 
 error_rals = exactout-ra;
 error_heun = exactout-he;
+error_mid = exactout-mid;
 
 subplot(2,3,1);
 plot(t,error_rals,'r');
@@ -32,6 +34,12 @@ xlabel('Time/s');
 ylabel('Error/V');
 title('Heun error');
 
+subplot(2,3,3);
+plot(t,error_mid,'r');
+xlabel('Time/s');
+ylabel('Error/V');
+title('Midpoint error');
+
 
 
 tf = 5;
@@ -39,6 +47,8 @@ subplot(2,3,4);
 title('Ralston O');
 subplot(2,3,5);
 title('Heun O');
+subplot(2,3,6);
+title('Midpoint O');
 
 for ind=14:20
     h = 2^(-ind);
@@ -49,13 +59,19 @@ for ind=14:20
     exactout = vin - R*exacti;
     
     [~,ra] = ralston(func,i0,vin,tf,R,L,h);
-    [t,he] = heun(func,i0,vin,tf,R,L,h);
+    [~,he] = heun(func,i0,vin,tf,R,L,h);
+    [t,mid] = midpoint(func,i0,vin,tf,R,L,h);
     error_rals = max(abs(exactout-ra));
     error_heun = max(abs(exactout-he));
+    error_mid = max(abs(exactout-mid));
     subplot(2,3,5);
     plot(log(h), log(error_rals), 'b*');
     hold on;
     subplot(2,3,4);
     plot(log(h), log(error_heun), 'r*');
     hold on;
+     subplot(2,3,6);
+    plot(log(h), log(error_mid), 'r*');
+    hold on;
 end
+
