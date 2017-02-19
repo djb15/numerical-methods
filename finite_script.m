@@ -1,5 +1,5 @@
 h = 0.005;
-k = 0.005;
+k = 0.000012;
 N = round(1/h);
 
 U = zeros(N+1);
@@ -15,8 +15,16 @@ v = k/h^2;
 b = 1-2*v;
 
 
-for m=2:7
+for m=2:1502
     for j=2:N
         U(m,j) = v*U(m-1,j-1) + b*U(m-1,j) + v*U(m-1, j+1);
     end
+end
+
+step = 2:150:1502;
+x = U(2,1:N+1);
+
+for i=step
+    plot(divs,U(i,1:N+1));
+    hold on;
 end
