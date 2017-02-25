@@ -34,7 +34,7 @@ hold on;
 v3 = 4.5*exp(-time/110*10^-6);
 [t,vout] = ralston(func,i0,v3,tf,R,L,h);
 plot(t,vout,'g');
-legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Southwest');
+legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Northeast');
 % This looks extremely similar to the output with the step signal input and
 % is the behaviour expected.
 
