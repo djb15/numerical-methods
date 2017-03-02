@@ -19,6 +19,7 @@ i(1) = i0;      % set up initial condition
       k2 = feval(func,vin(j)+0.5*h, i(j)+0.5*h*k1,R,L); % evaluate k2 as function at midpoint between i and i+1
       i(j+1)=i(j) + h*k2; % next value of i calculated
       t(j+1)=t(j)+h;      % next value of t as t+h   
+      Vout(j) = vin(j) - i(j)*R; %set up vout array using vin and estimated i(j)
     end
  Vout(N)= vin(N) - i(N)*R;
 end
