@@ -1,4 +1,4 @@
-func=@(vin,i,Res,Ind) (vin - Res*i)/Ind; % The ODE to be solved
+
 
 i0 = 0; % set initial condtion of iL at t_0
 R = 0.5; % set value of R
@@ -6,10 +6,13 @@ L = 0.0015; % set value of L
 h=0.001; % set step-size
 tf=0.035; % stop here
 
+vin = @(t) 3.5;
+func=@(t,i) (vin(t) - R*i)/L; % The ODE to be solved
+
 % Make a plot for step signal of amplitude 3.5V
 N = round(tf/h);
-v1 = repmat(3.5,1,N);
-[t,vout] = heun(func,i0,v1,tf,R,L,h);
+
+[t,vout] = heun(func,i0,vin,tf,R,L,h);
 figure;
 plot(t,vout,'r');
 xlabel('Time/s');
@@ -21,9 +24,10 @@ hold on;
 
 
 % make a plot for impulse decaying signal
-time = 0:h:tf;
-v2 = 4.5*exp(-(time.^2)/(100*10^-6));
-[t,vout] = heun(func,i0,v2,tf,R,L,h);
+t = 0:h:tf;
+vin =@(t) 4.5*exp(-(t.^2)/(100*10^-6));
+func=@(t,i) (vin(t) - R*i)/L;
+[t,vout] = heun(func,i0,vin,tf,R,L,h);
 plot(t,vout,'b');
 hold on;
 %This plot oscillates very slightly due to the square term of time and is
