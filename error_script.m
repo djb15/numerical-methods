@@ -15,10 +15,11 @@ i0 = 0;
 h = 0.000001;
 tf = 1000*h;%step size
 tau = 120*10^-6;
-Vin =@(t) 4*cos((2*pi*t)/tau); %input of the system
 
 %ODE for input into numerical methods - corresponds to the RL circuit
-func=@(t,i, Vin) (Vin(t) - R*i)/L; 
+func=@(t,i, Vin) (Vin(t) - R*i)/L;
+
+Vin =@(t) 4*cos((2*pi*t)/tau); %input of the system
 
 %exact solution of the system
 c = -(4*(tau^2)*R)/(4*(pi^2)*(L^2) + (tau^2)*(R^2)); %Value of c for the given initial conditions
@@ -26,9 +27,9 @@ exacti =@(t) c*exp(-(R*t)/L)+(8*pi*L*tau*sin((2*pi*t)/tau))/(4*(pi^2)*(L^2)+(tau
 exactout =@(t, Vin, exacti) Vin(t) - R*arrayfun(exacti, t); %Exact system response
 
 %carry out the numerical analysis of the system
-[t1,ra] = ralston(func,i0,Vin,tf,R,L,h);
-[t2,he] = heun(func,i0,Vin,tf,R,L,h);
-[t3,mid]= midpoint(func,i0,Vin,tf,R,L,h);
+[t1,ra] = ralston(func,i0,Vin,tf,R,h);
+[t2,he] = heun(func,i0,Vin,tf,R,h);
+[t3,mid]= midpoint(func,i0,Vin,tf,R,h);
 
 % Plot the error of each of the numerical methods
 %error = exact solution - numerical solution
@@ -71,9 +72,9 @@ for ind=15:20   %create loop to carry out error analysis for different step size
     
     
     %carry out the numerical analysis of the system
-    [t1,ra] = ralston(func,i0,Vin,tf,R,L,h);
-    [t2,he] = heun(func,i0,Vin,tf,R,L,h);
-    [t3,mid] = midpoint(func,i0,Vin,tf,R,L,h);
+    [t1,ra] = ralston(func,i0,Vin,tf,R,h);
+    [t2,he] = heun(func,i0,Vin,tf,R,h);
+    [t3,mid] = midpoint(func,i0,Vin,tf,R,h);
     
     error_rals = max(abs(feval(exactout,t1, Vin, exacti)-ra));
     error_heun = max(abs(feval(exactout, t2, Vin, exacti)-he));

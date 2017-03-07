@@ -6,13 +6,13 @@ L = 0.0015; % set value of L
 h=0.001; % set step-size
 tf=0.035; % stop here
 
-vin = @(t) 3.5;
-func=@(t,i) (vin(t) - R*i)/L; % The ODE to be solved
+func=@(t,i, vin) (vin(t) - R*i)/L; % The ODE to be solved
 
 % Make a plot for step signal of amplitude 3.5V
 N = round(tf/h);
 
-[t,vout] = heun(func,i0,vin,tf,R,L,h);
+vin = @(t) 3.5;
+[t,vout] = heun(func,i0,vin,tf,R,h);
 figure;
 plot(t,vout,'r');
 xlabel('Time/s');
@@ -24,10 +24,8 @@ hold on;
 
 
 % make a plot for impulse decaying signal
-t = 0:h:tf;
 vin =@(t) 4.5*exp(-(t.^2)/(100*10^-6));
-func=@(t,i) (vin(t) - R*i)/L;
-[t,vout] = heun(func,i0,vin,tf,R,L,h);
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 hold on;
 %This plot oscillates very slightly due to the square term of time and is
@@ -35,8 +33,8 @@ hold on;
 
 
 % Make a plot for another impulse decaying signal
-v3 = 4.5*exp(-time/110*10^-6);
-[t,vout] = heun(func,i0,v3,tf,R,L,h);
+vin =@(t) 4.5*exp(-t/110*10^-6);
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'g');
 legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Northeast');
 % This looks extremely similar to the output with the step signal input and
@@ -45,9 +43,8 @@ legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Northeast');
 % Sine, square, sawtooth wave inputs at wavelength of 1000um
 h = 0.0000001;
 tf = 0.002;
-time = 0:h:tf-h;
-v4 = 4*sin((2*pi*time)/(1000*10^-6));
-[t,vout] = heun(func,i0,v4,tf,R,L,h);
+vin =@(t) 4*sin((2*pi*t)/(1000*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 figure;
 subplot(2,2,4);
 plot(t,vout, 'r');
@@ -56,20 +53,22 @@ ylabel('Amplitude/V');
 title('Sine wave of wavelength 1000um');
 hold on;
 
-v5 = 4*square((2*pi*time)/(1000*10^-6));
-[t,vout] = heun(func,i0,v5,tf,R,L,h);
+vin =@(t) 4*square((2*pi*t)/(1000*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout, 'g');
 hold on;
 
-v6 = 4*sawtooth((2*pi*time)/(1000*10^-6));
-[t,vout] = heun(func,i0,v6,tf,R,L,h);
+vin =@(t) 4*sawtooth((2*pi*t)/(1000*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
-legend('Sine','Square','Sawtooth','Location','Southwest');h = 0.000001;
-tf = 0.002;
-time = 0:h:tf-h;
+legend('Sine','Square','Sawtooth','Location','Southwest');
 
-v7 = 4*sin((2*pi*time)/(750*10^-6));
-[t,vout] = heun(func,i0,v7,tf,R,L,h);
+
+h = 0.000001;
+tf = 0.002;
+
+vin =@(t) 4*sin((2*pi*t)/(750*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 subplot(2,2,3);
 plot(t,vout, 'r');
 xlabel('Time/s');
@@ -77,13 +76,13 @@ ylabel('Amplitude/V');
 title('Sine wave of wavelength 750um');
 hold on;
 
-v8 = 4*square((2*pi*time)/(750*10^-6));
-[t,vout] = heun(func,i0,v8,tf,R,L,h);
+vin =@(t) 4*square((2*pi*t)/(750*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout, 'g');
 hold on;
 
-v9 = 4*sawtooth((2*pi*time)/(750*10^-6));
-[t,vout] = heun(func,i0,v9,tf,R,L,h);
+vin =@(t) 4*sawtooth((2*pi*t)/(750*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');
 
@@ -91,9 +90,9 @@ legend('Sine','Square','Sawtooth','Location','Southwest');
 %Sine, square and sawtooth wave inputs at wavelength 110um
 h = 0.000001;
 tf = 0.0003;
-time = 0:h:tf-h;
-v10 = 4*sin((2*pi*time)/(110*10^-6));
-[t,vout] = heun(func,i0,v10,tf,R,L,h);
+
+vin =@(t) 4*sin((2*pi*t)/(110*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 subplot(2,2,2);
 plot(t,vout,'r');
 xlabel('Time/s');
@@ -101,13 +100,13 @@ ylabel('Amplitude/V');
 title('Sine wave of wavelength 110um');
 hold on;
 
-v11 = 4*square((2*pi*time)/(110*10^-6));
-[t,vout] = heun(func,i0,v11,tf,R,L,h);
+vin =@(t) 4*square((2*pi*t)/(110*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'g');
 hold on;
 
-v12 = 4*sawtooth((2*pi*time)/(110*10^-6));
-[t,vout] = heun(func,i0,v12,tf,R,L,h);
+vin =@(t) 4*sawtooth((2*pi*t)/(110*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');
 
@@ -115,9 +114,9 @@ legend('Sine','Square','Sawtooth','Location','Southwest');
 %Sine, square and sawtooth wave inputs at wavelength 35um
 h = 0.0000001;
 tf = 0.0001;
-time = 0:h:tf-h;
-v13 = 4*sin((2*pi*time)/(35*10^-6));
-[t,vout] = heun(func,i0,v13,tf,R,L,h);
+
+vin =@(t) 4*sin((2*pi*t)/(35*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 subplot(2,2,1);
 plot(t,vout,'r');
 xlabel('Time/s');
@@ -125,12 +124,12 @@ ylabel('Amplitude/V');
 title('Sine wave of wavelength 35um');
 hold on;
 
-v14 = 4*square((2*pi*time)/(35*10^-6));
-[t,vout] = heun(func,i0,v14,tf,R,L,h);
+vin =@(t) 4*square((2*pi*t)/(35*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'g');
 hold on;
 
-v15 = 4*sawtooth((2*pi*time)/(35*10^-6));
-[t,vout] = heun(func,i0,v15,tf,R,L,h);
+vin =@(t) 4*sawtooth((2*pi*t)/(35*10^-6));
+[t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');

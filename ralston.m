@@ -1,4 +1,4 @@
-function [t,vout] = ralston(func,i0,vin,tf,R,L,h)
+function [t,vout] = ralston(func,i0,vin,tf,R,h)
     %Performs the ralston numerical method (output t,vout)
     %   func = ODE
     %   i0 = Initial condition

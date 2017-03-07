@@ -1,4 +1,4 @@
-function [ t,Vout ] = midpoint(func,i0,vin,tf,R,L,h)
+function [ t,Vout ] = midpoint(func,i0,vin,tf,R,h)
 % Performs the Midpoint numerical method (output t,vout)
 % func = ODE
 % i0 = Initial condition

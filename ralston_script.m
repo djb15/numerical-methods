@@ -10,7 +10,7 @@ func=@(t,i, vin) (vin(t) - R*i)/L; % The ODE to be solved
 
 % Make a plot for step signal of amplitude 3.5V
 vin = @(t) 3.5;
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 figure;
 plot(t,vout,'r');
 xlabel('Time/s');
@@ -23,7 +23,7 @@ hold on;
 
 % make a plot for impulse decaying signal
 vin =@(t) 4.5*exp(-(t.^2)/(100*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 hold on;
 %This plot oscillates very slightly due to the square term of time and is
@@ -32,7 +32,7 @@ hold on;
 
 % Make a plot for another impulse decaying signal
 vin =@(t) 4.5*exp(-t/110*10^-6);
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'g');
 legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Northeast');
 % This looks extremely similar to the output with the step signal input and
@@ -42,7 +42,7 @@ legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Northeast');
 h = 0.0000001;
 tf = 0.002;
 vin =@(t) 4*sin((2*pi*t)/(1000*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 figure;
 subplot(2,2,4);
 plot(t,vout, 'r');
@@ -52,12 +52,12 @@ title('Sine of wavelength 1000um');
 hold on;
 
 vin =@(t) 4*square((2*pi*t)/(1000*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout, 'g');
 hold on;
 
 vin =@(t) 4*sawtooth((2*pi*t)/(1000*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');
 
@@ -66,7 +66,7 @@ legend('Sine','Square','Sawtooth','Location','Southwest');
 h = 0.000001;
 tf = 0.002;
 vin =@(t) 4*sin((2*pi*t)/(750*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 subplot(2,2,3);
 plot(t,vout, 'r');
 xlabel('Time/s');
@@ -75,12 +75,12 @@ title('Sine of wavelength 750um');
 hold on;
 
 vin =@(t) 4*square((2*pi*t)/(750*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout, 'g');
 hold on;
 
 vin =@(t) 4*sawtooth((2*pi*t)/(750*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');
 
@@ -89,7 +89,7 @@ legend('Sine','Square','Sawtooth','Location','Southwest');
 h = 0.000001;
 tf = 0.0003;
 vin =@(t) 4*sin((2*pi*t)/(110*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 subplot(2,2,2);
 plot(t,vout,'r');
 xlabel('Time/s');
@@ -98,12 +98,12 @@ title('Sine of wavelength 110um');
 hold on;
 
 vin =@(t) 4*square((2*pi*t)/(110*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'g');
 hold on;
 
 vin =@(t) 4*sawtooth((2*pi*t)/(110*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');
 
@@ -112,7 +112,7 @@ legend('Sine','Square','Sawtooth','Location','Southwest');
 h = 0.0000001;
 tf = 0.0001;
 vin =@(t) 4*sin((2*pi*t)/(35*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 subplot(2,2,1);
 plot(t,vout,'r');
 xlabel('Time/s');
@@ -121,12 +121,12 @@ title('Sine of wavelength 35um');
 hold on;
 
 vin =@(t) 4*square((2*pi*t)/(35*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'g');
 hold on;
 
 vin =@(t) 4*sawtooth((2*pi*t)/(35*10^-6));
-[t,vout] = ralston(func,i0,vin,tf,R,L,h);
+[t,vout] = ralston(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');
 
