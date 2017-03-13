@@ -1,4 +1,4 @@
-function [t,vout] = ralston(func,i0,vin,tf,R,L,h)
+function [t,vout] = ralston(func,i0,vin,tf,R,h)
     %Performs the ralston numerical method (output t,vout)
     %   func = ODE
     %   i0 = Initial condition
@@ -12,20 +12,19 @@ function [t,vout] = ralston(func,i0,vin,tf,R,L,h)
 
     i=zeros(1,N); %set up arrays 
     t=zeros(1,N);
-    vout=zeros(1,N);
 
     i(1)=i0; % initial condition setup 
 
-    for j=1:N-1 % loop for N steps
+    for x=1:N-1 % loop for N steps
        
-        k1 = feval(func,vin(j),i(j),R,L); %evaluate function for k1 and k2
-        k2 = feval(func,vin(j)+(2/3)*h,i(j)+(2/3)*h*k1,R,L);
+        k1 = feval(func,t(x),i(x), vin); %evaluate function for k1 and k2
+        k2 = feval(func,t(x)+(2/3)*h,i(x)+(2/3)*h*k1, vin);
 
-        i(j+1)= i(j) + h*(0.25*k1 + 0.75*k2); % next value of i calculated
-        t(j+1)=t(j)+h; % next value of t, increase by h
+        i(x+1)= i(x) + h*(0.25*k1 + 0.75*k2); % next value of i calculated
+        t(x+1)=t(x)+h; % next value of t, increase by h
 
-        vout(j) = vin(j) - i(j)*R; %returns vout from vin and estimated current
+        
     end
-    vout(N) = vin(N) - i(N)*R;
+    vout = arrayfun(vin,t) - i*R; %returns vout from vin and estimated current
 end
 
