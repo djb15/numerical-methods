@@ -2,7 +2,11 @@ h = 0.005;
 k = 0.000012;
 N = round(1/h);
 
-U1 = zeros(N+1);
+% Assigning h to split spatial domain into 200 segments
+% Assigning k to split time domain into reasonable number of segments to observe the changes properly
+% N= number of segments in the spatial axis
+
+U1 = zeros(N+1); % Set up zero matrix for each function
 U2 = zeros(N+1);
 U3 = zeros(N+1);
 U4 = zeros(N+1);
@@ -10,12 +14,13 @@ U5 = zeros(N+1);
 U6 = zeros(N+1);
 U7 = zeros(N+1);
 
-divs = 0:h:1;
-y0 = (sawtooth(2*pi*divs,0.5)+1)/2;
-y1 = sin(2*pi*divs);
-y2 = abs(sin(2*pi*divs));
-y3 = square(2*pi*divs);
-y4 = sawtooth(2*pi*divs);
+divs = 0:h:1;  % To go from 0 to 1 in steps of h i.e to set up discrete points
+
+y0 = (sawtooth(2*pi*divs,0.5)+1)/2; % Tent function
+y1 = sin(2*pi*divs);                % Sinusoidal function   
+y2 = abs(sin(2*pi*divs));           % Absolute sinusoidal function
+y3 = square(2*pi*divs);             % Square wave function  
+y4 = sawtooth(2*pi*divs);           % Sawtooth wave function
 
 
 U1(1,2:N) = y0(2:N);
@@ -28,6 +33,7 @@ U7(1,2:N) = y0(2:N);
 
 %At x=0 and x=N (i.e. the start and end of the rod) the value is 0 for all
 %m.  This corresponds to the first and last column of the matrix being 0.
+
 v = k/h^2;
 b = 1-2*v;
 
@@ -47,12 +53,12 @@ U7(1,N+1) = feval(high_bound, 0);
 
 
 
-for m=2:1502
+for m=2:1502    % Setting the time axis
     % Time varying boundary conditions set here also
     U7(m,1) = feval(low_bound, (m-1)*k);
     U7(m,N+1) = feval(high_bound, (m-1)*k);
     
-    for j=2:N
+    for j=2:N   % Setting the spatial axis
         U1(m,j) = v*U1(m-1,j-1) + b*U1(m-1,j) + v*U1(m-1, j+1);
         U2(m,j) = v*U2(m-1,j-1) + b*U2(m-1,j) + v*U2(m-1, j+1);
         U3(m,j) = v*U3(m-1,j-1) + b*U3(m-1,j) + v*U3(m-1, j+1);
@@ -62,8 +68,9 @@ for m=2:1502
         U7(m,j) = v*U7(m-1,j-1) + b*U7(m-1,j) + v*U7(m-1, j+1);
     end
 end
+% Implementing eq (1) for each discrete point
 
-step = 1:150:1501;
+step = 1:150:1501; % Reasonable value of time step chosen to observe the changes for each function
 figure;
 
 for i=step
@@ -98,10 +105,14 @@ for i=step
     xlabel('Distance');
     hold on;
 end
+% To plot each function on a graph
 
+
+% Plot the time varying boundary conditions on a seperate figure
 figure;
 for i=step
     plot(divs,U7(i,1:N+1));
     hold on;
 end
+
 
