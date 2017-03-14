@@ -112,6 +112,8 @@ end
 figure;
 for i=step
     plot(divs,U7(i,1:N+1));
+    title('Triangle wave with time varying boundary conditions');
+    xlabel('Distance');
     hold on;
 end
 
