@@ -59,6 +59,7 @@ for m=2:1502
         U4(m,j) = v*U4(m-1,j-1) + b*U4(m-1,j) + v*U4(m-1, j+1);
         U5(m,j) = v*U5(m-1,j-1) + b*U5(m-1,j) + v*U5(m-1, j+1);
         U6(m,j) = v*U6(m-1,j-1) + b*U6(m-1,j) + v*U6(m-1, j+1);
+        U7(m,j) = v*U7(m-1,j-1) + b*U7(m-1,j) + v*U7(m-1, j+1);
     end
 end
 
@@ -97,3 +98,10 @@ for i=step
     xlabel('Distance');
     hold on;
 end
+
+figure;
+for i=step
+    plot(divs,U7(i,1:N+1));
+    hold on;
+end
+
