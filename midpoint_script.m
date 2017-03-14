@@ -9,10 +9,10 @@ tf=0.035; % stop here
 func=@(t,i,vin) (vin(t) - R*i)/L; % The ODE to be solved
 
 % Make a plot for step signal of amplitude 3.5V
-vin =@(t) 3.5;
-[t,vout] = midpoint(func,i0,vin,tf,R,h);
+vin =@(t) 3.5; % Define input
+[t,vout] = midpoint(func,i0,vin,tf,R,h); % call midpoint function
 figure;
-plot(t,vout,'r');
+plot(t,vout,'r');  % plot the graph
 xlabel('Time/s');
 ylabel('Amplitude/V');
 title('Impluse reponses');
@@ -22,17 +22,17 @@ hold on;
 
 
 % make a plot for impulse decaying signal
-vin =@(t) 4.5*exp(-(t.^2)/(100*10^-6));
-[t,vout] = midpoint(func,i0,vin,tf,R,h);
-plot(t,vout,'b');
+vin =@(t) 4.5*exp(-(t.^2)/(100*10^-6)); % Define input
+[t,vout] = midpoint(func,i0,vin,tf,R,h); % call midpoint function
+plot(t,vout,'b'); % plot the graph
 hold on;
 %This plot oscillates very slightly due to the square term of time and is
 %the expected behaviour of the circuit.
 
 
 % Make a plot for another impulse decaying signal
-vin =@(t) 4.5*exp(-t/110*10^-6);
-[t,vout] = midpoint(func,i0,vin,tf,R,h);
+vin =@(t) 4.5*exp(-t/110*10^-6);  % Define input
+[t,vout] = midpoint(func,i0,vin,tf,R,h);% call midpoint function
 plot(t,vout,'g');
 legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Northeast');
 % This looks extremely similar to the output with the step signal input and
@@ -42,8 +42,8 @@ legend('Vin = 3.5V','Impulse with t^2','Impulse with t','Location','Northeast');
 h = 0.0000001;
 tf = 0.002;
 
-vin =@(t) 4*sin((2*pi*t)/(1000*10^-6));
-[t,vout] = midpoint(func,i0,vin,tf,R,h);
+vin =@(t) 4*sin((2*pi*t)/(1000*10^-6)); %Define input
+[t,vout] = midpoint(func,i0,vin,tf,R,h); % call midpoint function
 figure;
 subplot(2,2,4);
 plot(t,vout, 'r');
@@ -52,13 +52,13 @@ ylabel('Amplitude/V');
 title('Sine of wavelength 1000um');
 hold on;
 
-vin =@(t) 4*square((2*pi*t)/(1000*10^-6));
-[t,vout] = midpoint(func,i0,vin,tf,R,h);
+vin =@(t) 4*square((2*pi*t)/(1000*10^-6)); %Define input
+[t,vout] = midpoint(func,i0,vin,tf,R,h); %call midpoint function
 plot(t,vout, 'g');
 hold on;
 
-vin =@(t) 4*sawtooth((2*pi*t)/(1000*10^-6));
-[t,vout] = midpoint(func,i0,vin,tf,R,h);
+vin =@(t) 4*sawtooth((2*pi*t)/(1000*10^-6)); %Define input
+[t,vout] = midpoint(func,i0,vin,tf,R,h); % call midpoint function
 plot(t,vout,'b');
 legend('Sine','Square','Sawtooth','Location','Southwest');
 
