@@ -24,7 +24,7 @@ hold on;
 
 
 % make a plot for impulse decaying signal
-vin =@(t) 4.5*exp(-(t.^2)/(100*10^-6));
+vin =@(t) 4.5*exp(-(t.^2)/(110*10^-6));
 [t,vout] = heun(func,i0,vin,tf,R,h);
 plot(t,vout,'b');
 hold on;
