@@ -22,7 +22,7 @@ hold on;
 
 
 % make a plot for impulse decaying signal
-vin =@(t) 4.5*exp(-(t.^2)/(100*10^-6)); % Define input
+vin =@(t) 4.5*exp(-(t.^2)/(110*10^-6)); % Define input
 [t,vout] = midpoint(func,i0,vin,tf,R,h); % call midpoint function
 plot(t,vout,'b'); % plot the graph
 hold on;
