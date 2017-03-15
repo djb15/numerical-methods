@@ -1,13 +1,18 @@
+%The RLC script calculates the voltage across R (Vout) for a given
+%input signal(Vin)
+
 qdash=@(y) y;
 ydash=@(vin,q,y,R,L,C) (1/L)*vin - (R/L)*y - (1/(L*C))*q;
 
-tf=0.02;
-h=0.000001;
-time=0:h:tf-h;
-N=round(tf/h);
+%Set all the variables for use in the for loops later
+tf=0.02; % Final time
+h=0.000001; % Step size
+time=0:h:tf-h; % Make time matrix
+N=round(tf/h); % Number of time iterations
 q=zeros(1,N);
 y=zeros(1,N);
 vout=zeros(1,N);
+% Set initial conditions
 q(1)=500*10^-9;
 y(1)=0;
 
@@ -17,6 +22,7 @@ C=3.5*10^-6;
 
 figure;
 
+%Input of 5V step signal
 inputv1=repmat(5,1,N);
 
 for j=1:N-1
@@ -29,6 +35,7 @@ vout(N)=R*y(N);
 plot(time,vout);
 
 hold on;
+% Input of decaying inpulse signal 
 inputv2=5*exp(-(time.^2)/3*10^-3);
 q=zeros(1,N);
 y=zeros(1,N);
@@ -44,6 +51,8 @@ vout(N)=R*y(N);
 plot(time,vout,'r');
 
 
+% Modifying time and step sizes for input of square wave and sine waves of
+% varying period for the following set of plots
 figure;
 tf=0.5;
 h=0.00001;
@@ -63,6 +72,7 @@ end
 vout(N)=R*y(N);
 plot(time,vout,'r');
 hold on;
+
 
 sin1=5*sin(2*pi*5*time);
 q=zeros(1,N);
