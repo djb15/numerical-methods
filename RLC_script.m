@@ -33,6 +33,9 @@ for j=1:N-1
 end
 vout(N)=R*y(N);
 plot(time,vout);
+title('Plot of 5V impulse and 5V decaying impulse');
+xlabel('Time/s');
+ylabel('Voltage/V');
 
 hold on;
 % Input of decaying inpulse signal 
@@ -49,6 +52,7 @@ for j=1:N-1
 end
 vout(N)=R*y(N);
 plot(time,vout,'r');
+legend('Step','Impulsive Decay','Location','Southwest');
 
 
 % Modifying time and step sizes for input of square wave and sine waves of
@@ -57,7 +61,7 @@ figure;
 tf=0.5;
 h=0.00001;
 time=0:h:tf-h;
-square1=5*square(2*pi*5*time);
+square1=5*square(2*pi*5*time); %Square wave of frequency 5Hz
 N=round(tf/h);
 q=zeros(1,N);
 y=zeros(1,N);
@@ -74,7 +78,7 @@ plot(time,vout,'r');
 hold on;
 
 
-sin1=5*sin(2*pi*5*time);
+sin1=5*sin(2*pi*5*time); %Sine wave of frequency 5Hz
 q=zeros(1,N);
 y=zeros(1,N);
 vout=zeros(1,N);
@@ -87,13 +91,17 @@ for j=1:N-1
 end
 vout(N)=R*y(N);
 plot(time,vout,'b');
+xlabel('Time/s');
+ylabel('Voltage/V');
+title('Plot of 5Hz sine wave and square wave through given RLC circuit');
+legend('Square', 'Sine', 'Location', 'Southwest');
 
 
 figure;
 tf=0.05;
 h=0.00001;
 time=0:h:tf-h;
-square2=5*square(2*pi*110*time);
+square2=5*square(2*pi*110*time); %Square wave of 110Hz
 N=round(tf/h);
 q=zeros(1,N);
 y=zeros(1,N);
@@ -109,7 +117,7 @@ vout(N)=R*y(N);
 plot(time,vout,'r');
 hold on;
 
-sin2=5*sin(2*pi*110*time);
+sin2=5*sin(2*pi*110*time); %Sine wave of 110Hz
 q=zeros(1,N);
 y=zeros(1,N);
 vout=zeros(1,N);
@@ -122,6 +130,10 @@ for j=1:N-1
 end
 vout(N)=R*y(N);
 plot(time,vout,'b');
+xlabel('Time/s');
+ylabel('Voltage/V');
+title('Plot of 110Hz sine wave and square wave through given RLC circuit');
+legend('Square', 'Sine', 'Location', 'Southwest');
 
 
 
@@ -129,7 +141,7 @@ figure;
 tf=0.02;
 h=0.000001;
 time=0:h:tf-h;
-square3=5*square(2*pi*500*time);
+square3=5*square(2*pi*500*time); %500Hz Square wave
 N=round(tf/h);
 q=zeros(1,N);
 y=zeros(1,N);
@@ -146,7 +158,7 @@ plot(time,vout,'r');
 hold on;
 
 
-sin3=5*sin(2*pi*500*time);
+sin3=5*sin(2*pi*500*time); %500Hz sine wave
 q=zeros(1,N);
 y=zeros(1,N);
 vout=zeros(1,N);
@@ -159,6 +171,11 @@ for j=1:N-1
 end
 vout(N)=R*y(N);
 plot(time,vout,'b');
+xlabel('Time/s');
+ylabel('Voltage/V');
+title('Plot of 500Hz sine wave and square wave through given RLC circuit');
+legend('Square', 'Sine', 'Location', 'Southwest');
+
 
 
 
